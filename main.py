@@ -1,10 +1,14 @@
 import streamlit as st
 from API import create_data, read_data, update_data, delete_data
+import json
+import pandas as pd
+
 
 st.set_page_config(
     page_title="CRUD API",
     layout="centered",
 )
+
 
 
 st.markdown("""
@@ -40,7 +44,7 @@ with col1:
 with col2:            
     if st.button("Read", key="read"):
         data = read_data()
-        st.table(data= data)
+        st.write(data)
         
 with col3:
     atualizar = st.button("Update", key= 'update')

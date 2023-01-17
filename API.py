@@ -1,7 +1,8 @@
 import pyodbc
+import pandas as pd
 
 connection = pyodbc.connect('DRIVER={SQL Server};'
-                            'SERVER=DESKTOP-server;'
+                            'SERVER=server;'
                             'DATABASE=database;'
                             'UID=user;'
                             'PWD=password')
@@ -13,11 +14,11 @@ def create_data(nome, idade, cidade, telefone, profissao):
     print("Pessoa registrada com sucesso!")
 
 def read_data():
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM Pessoa")
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    query = "SELECT * FROM Pessoa"
+    data = pd.read_sql(query, connection)
+    return data
+
+
 
 def update_data(nome, idade, cidade, telefone, profissao, id):
     cursor = connection.cursor()
