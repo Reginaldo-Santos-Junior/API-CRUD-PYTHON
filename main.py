@@ -1,7 +1,5 @@
 import streamlit as st
 from API import create_data, read_data, update_data, delete_data
-import json
-import pandas as pd
 
 
 st.set_page_config(
@@ -30,6 +28,12 @@ st.title("---CRUD API COM SQL SERVER---")
 
 col1, col2, col3, col4 = st.columns(4)
 
+def validate_fields():
+    if telefone != "" and cidade != "" and idade != "" and profissao != "" and nome != "":
+        return True
+    else:
+        return False
+
 with col1:
     criar = st.button("Create", key= 'create')
     nome = st.text_input("Nome", key='nome')
@@ -37,9 +41,11 @@ with col1:
     cidade = st.text_input('Cidade', key='cidade')
     telefone = st.text_input('Telefone', key='telefone', help='Adicionar DDD (exp = 011)')
     profissao = st.text_input('Profissão', key='profissao')
-    if criar:
+    if criar and validate_fields() == True :
         create_data(nome, idade, cidade, telefone, profissao)
         st.success("Pessoa criada com sucesso")
+    else:
+        st.error("Preencha todos os campos para continuar!")
             
 with col2:            
     if st.button("Read", key="read"):
@@ -54,10 +60,11 @@ with col3:
     cidade = st.text_input('Cidade')
     telefone = st.text_input('Telefone', help='Adicionar DDD (exp = 011)')
     profissao = st.text_input('Profissão')
-    if atualizar:
+    if atualizar and id != "" and validate_fields() == True:
         update_data(nome, idade, cidade, telefone, profissao, id)
         st.success("Pessoa atualizada com sucesso!")
-        
+    else:
+        st.error("Preencha todos os campos para continuar!")
 with col4:        
     deletar = st.button("Delete", key="delete")
     id = st.text_input("Passe o ID",)
