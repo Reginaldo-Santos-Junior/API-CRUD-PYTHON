@@ -52,11 +52,11 @@ with col3:
     profissao = st.text_input('Profissão')
     if atualizar:
         update_data(nome, idade, cidade, telefone, profissao, id)
-        st.success("Data updated successfully")
+        st.success("Pessoa atualizada com sucesso!")
         
 with col4:        
     deletar = st.button("Delete", key="delete")
     id = st.text_input("Passe o ID",)
     if deletar and id != " ":
         delete_data(id)
-        st.success("Data deleted successfully")
+        st.success("Pessoa deletada com sucesso!")
